@@ -59,9 +59,7 @@
 
 - [GitHub](/)
 
-## Work flow of the script
-
-First it will check if a newer version of the script is available; afterwards it will check your installed version of each instance against the latest available version from teamspeak.de. It also will detect if you are using TSDNS, SQLite or MySQL database, etc. If a newer version is available, the script will do following steps:
+## How install script ?
 
 - Only follow up if a teamspeak server not already exists
 1. Create directory (On "c:\" or other) to deposit the scripts
@@ -92,6 +90,17 @@ First it will check if a newer version of the script is available; afterwards it
 15. The next time the script runs it will check if an update exists and if it does, it will turn it off, save, update the server and restart it on its own.
 
 The files/directories will not be touched by the script - also not backuped!
+
+
+## Work flow of the script
+
+First it will check if a newer version of the script is available; afterwards it will check your installed version of each instance against the latest available version from teamspeak.com. If a newer version is available, the script will do following steps:
+
+1. check if an update exists and if it does
+2. turn it off
+3. save
+4. update the serve
+5. restart the serve
 
 ## Used Resources by the script
 
