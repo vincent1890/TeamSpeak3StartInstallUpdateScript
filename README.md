@@ -31,7 +31,7 @@
 
 **TeamSpeak3StartInstallUpdateScript** is free software and is made available free of charge. Your donation, which is purely optional, supports me at improving the software as well as reducing my costs of this project. If you like the software, please consider a donation. Thank you very much!
 
-[Donate with PayPal](https://www.paypalme/SRVServeur)
+[Donate with PayPal](https://www.paypal.me/SRVServeur)
 
 ## Main features
 
