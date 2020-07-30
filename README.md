@@ -43,7 +43,7 @@
 - NOT TeamSpeak 3 server instances start on server/VPS/virtual machine
 - Software packages
   - Required
-    - curl (If use windows server 2008 R2)
+    - curl (If use windows server 2008 R2)[Tuto install and Download Curl](https://o7planning.org/fr/11617/installation-de-curl-sous-windows#a13425036)
 - Optional
     - telnet (The telnet client) (if you want add/create key api for shutdown serveur and update)
 
