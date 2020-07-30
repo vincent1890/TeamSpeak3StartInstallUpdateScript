@@ -1,0 +1,2 @@
+# TeamSpeak3StartInstallUpdateScript
+Auto Install the Windows TeamSpeak 3 Server on Windows 10 / server 2008 R2 / server 2016 / server 2019
