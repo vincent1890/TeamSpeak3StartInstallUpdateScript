@@ -1,4 +1,12 @@
 @ECHO off & SETlocal
+::========================================================================
+::
+:: Tool Name : TeamSpeak3StartInstallUpdateScript
+:: Author 	 : Vincent LAMY
+:: Date 	 : 28/07/2020
+:: Website	 : https://github.com/vincent1890/TeamSpeak3StartInstallUpdateScript/
+::
+::========================================================================
 
 ::--------------------------------------
 :: Must be edited before use
@@ -10,7 +18,10 @@ SET "ApiKey=BABsnTr8Bu83fw05K9RTwQDqPliYAwYl8MnEmCC"
 REM Change ByPassCheckIniFile to 1 for bypass verif if file ts3server.ini exist
 SET "ByPassCheckIniFile=0"
 REM Change ByPassUpdates to 1 for bypass updates server
-SET "ByPassUpdates=1"
+SET "ByPassUpdates=0"
+REM Change if your use SQLite or MySQL for DataBase server (By default SQLite is use)
+SET "DbSQLiteMySQL=SQLite"
+
 
 
 ::--------------------------------------
@@ -24,6 +35,7 @@ SET "UrlJsonTeamSpeakLastestVersion=https://www.teamspeak.com/versions/server.js
 REM The TeamSpeakLocalVersion variable is initially created to avoid errors when installing from zero or if query_protocols has not been defined and the http api is not accessible.
 SET "TeamSpeakLocalVersion=3.12.0"
 SET "IsByPassUpdatesEnable=1"
+SET "IsDbMySQL=MySQL"
 IF %ByPassUpdates% equ %IsByPassUpdatesEnable% ( SET TeamSpeakLocalVersion=99.99.99 )
 
 
@@ -93,6 +105,7 @@ SET DownloadPath=%~dp0teamspeak3-server_win64-%TeamSpeakLastestVersion%.zip
 SET Directory=%~dp0
 %WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe -Command "& {Import-Module BitsTransfer;Start-BitsTransfer '%DownloadUrlTeamSpeakLastestVersion%' '%DownloadPath%';$shell = new-object -com shell.application;$zip = $shell.NameSpace('%DownloadPath%');foreach($item in $zip.items()){$shell.Namespace('%Directory%').copyhere($item, 0x14)};remove-item '%DownloadPath%';}"
 ECHO Download complete and extracted to the directory.
+IF %DbSQLiteMySQL% == %IsDbMySQL% ( ECHO F|xcopy /y "%~dp0teamspeak3-server_win64\redist\libmariadb.dll" "%~dp0teamspeak3-server_win64\libmariadb.dll" /K /D )
 Goto :CHECK-INI-FILE
 
 :CHECK-INI-FILE
