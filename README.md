@@ -10,7 +10,7 @@
 - [Stay tuned!](#stay-tuned)
 - [Requirements](#requirements)
 - [Supports](#supports)
-- [How install script](#How install script)
+- [How install script](#how-install-script)
 - [Work flow of the script](#work-flow-of-the-script)
 - [Used Resources by the script](#used-resources-by-the-script)
 - [Directory Structure - Where can I find which file?](#directory-structure---where-can-i-find-which-file)
