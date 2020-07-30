@@ -58,3 +58,39 @@
 ## Stay tuned!
 
 - [GitHub](/)
+
+## Work flow of the script
+
+First it will check if a newer version of the script is available; afterwards it will check your installed version of each instance against the latest available version from teamspeak.de. It also will detect if you are using TSDNS, SQLite or MySQL database, etc. If a newer version is available, the script will do following steps:
+
+- Only follow up if a teamspeak server not already exists
+1. Create directory (On C:\ or other) to deposit the scripts
+2. Download latest TeamSpeak3StartInstallUpdateScript and deposit the scripts
+3. Start latest TeamSpeak3StartInstallUpdateScript.bat
+4. Follow the instructions given in the console
+
+
+- Only follow up if a teamspeak server already exists
+1. Create directory (On C:\ or other) to deposit the scripts
+2. Download latest TeamSpeak3StartInstallUpdateScript and deposit the scripts
+3. Stop running TSDNS (if used)
+4. Stop running server instance gracefully
+5. Backup server (if any is available)
+6. Start latest TeamSpeak3StartInstallUpdateScript.bat
+7. Follow the instructions given in the console
+8. At the END stop running the server instance gracefully
+9. Import licensekey (if available), database, Query IP Black - Whitelist, files and logs from backup
+10. Import TSDNS settings file (if used)
+11. Set ownership and group of files like
+12. Restart TeamSpeak3StartInstallUpdateScript.bat
+
+The files/directories will not be touched by the script - also not backuped!
+
+## Used Resources by the script
+
+Protocol | Host/IP  | Used for | How often?
+:------------- | :------------- | :------------- | :-------------
+https | www.teamspeak.com | For detection of latest stable server release version | Each execution of the TeamSpeak3StartInstallUpdateScript
+https | files.teamspeak-services.com | Download server for TeamSpeak 3 server files | Each execution of the TeamSpeak3StartInstallUpdateScript
+https | raw.githubusercontent.com | Server for checking latest TeamSpeak3StartInstallUpdateScript version | Each execution of the TeamSpeak3StartInstallUpdateScript
+https | github.com | Download server for TeamSpeak3StartInstallUpdateScript files | Only if you update the TeamSpeak3StartInstallUpdateScript
