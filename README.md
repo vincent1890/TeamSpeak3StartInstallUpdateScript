@@ -56,7 +56,7 @@
 
 - [GitHub](/)
 
-## How install script ?
+## How install script
 
 - Only follow up if a teamspeak server not already exists
 1. Create directory (On "c:\" or other) to deposit the scripts
