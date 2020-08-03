@@ -80,7 +80,8 @@ ECHO PASSED
 ECHO Update not required
 ECHO.
 TIMEOUT 5 /nobreak >nul
-Goto :CHECK-INI-FILE
+SET "ByPassUpdates=1"
+Goto :STOP-SERVER
 
 :STOP-SERVER
 ECHO Stopping Serveur Teamspeak by API ...
@@ -97,6 +98,7 @@ ECHO.
 Goto :DOWNLOAD-INSTALL-UPDATES
 
 :DOWNLOAD-INSTALL-UPDATES
+IF %ByPassUpdates% equ %IsByPassUpdatesEnable% ( Goto :CHECK-INI-FILE )
 ECHO Downloading last version ...
 ECHO Please wait ...
 ECHO.
@@ -110,6 +112,9 @@ Goto :CHECK-INI-FILE
 
 :CHECK-INI-FILE
 IF %ByPassCheckIniFile% == "1" ( Goto :LAUNCH )
+ECHO Check-INI-File ...
+ECHO Please wait ...
+ECHO.
 IF Exist "%~dp0teamspeak3-server_win64\ts3server.ini" ( Goto :LAUNCH )
 cls 
 color DE
@@ -174,6 +179,7 @@ Rem Add Check no process ts3server open
 ECHO Starting Server TEAMSPEAK3 ...
 ECHO Please wait ...
 ECHO.
+TIMEOUT 1 /nobreak >nul
 start "TS3serveur" /D "%~dp0teamspeak3-server_win64\" ts3server.exe inifile=ts3server.ini
 Goto :EXIT
 
