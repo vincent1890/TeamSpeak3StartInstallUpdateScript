@@ -14,7 +14,7 @@
 Rem Specify the address and port of your teamspeak3 api server
 SET "URL=http://127.0.0.1:10080"
 Rem Specify your KEY api server teamspeak3 (apikeyadd) HELP Here https://community.teamspeak.com/t/teamspeak-server-3-12-x/3916
-SET "ApiKey=BABsnTr8Bu83fw05K9RTwQDqPliYAwYl8MnEmCC"
+SET "ApiKey=BABsnTr8B785kjgh99RTwQDqPliYAwYl8MnEmC"
 REM Change ByPassCheckIniFile to 1 for bypass verif if file ts3server.ini exist
 SET "ByPassCheckIniFile=0"
 REM Change ByPassUpdates to 1 for bypass updates server
