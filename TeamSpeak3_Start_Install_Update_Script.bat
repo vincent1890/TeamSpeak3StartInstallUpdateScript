@@ -21,12 +21,32 @@ REM Change ByPassUpdates to 1 for bypass updates server
 SET "ByPassUpdates=0"
 REM Change if your use SQLite or MySQL for DataBase server (By default SQLite is use)
 SET "DbSQLiteMySQL=SQLite"
-
-
+Rem Modify variable DirBackup for indique directory backup Teamspeak-Server by default directory .\Backup ("DirBackup=%~dp0Backup")
+SET "DirBackup=%~dp0Backup"
+Rem Modify variable DirZipBackup for indique directory where Backup file zip by default directory .\Archives ("DirBackup=%~dp0Backup")
+SET "DirZipBackup=%~dp0Backup"
 
 ::--------------------------------------
 :: Should not be edited except by expert
 ::--------------------------------------
+Rem Param Date et Heure
+set JJ=%DATE:~0,2%
+set MM=%DATE:~3,2%
+set AA=20%DATE:~8,2%
+:: -------------------------
+Rem Heure avec 0 devant set H=%time:~0,2%
+set H0=%time:~0,2%
+set /a H1=%H0%+100
+set H=%H1:~1,2%
+set M=%time:~3,2%
+set S=%time:~6,2%
+set AMJ=%AA%%MM%%JJ%
+set HMS=%H%%M%%S%
+set AMJ2=%AA%-%MM%-%JJ%
+set HMS2=%H%-%M%-%S%
+set DateHeure=%AMJ%_%HMS%
+set DateHeure2=%AMJ2%_%HMS2%
+:: -------------------------
 SET "jsonfileTeamSpeakLocalVersion=LocalVersion.json"
 SET "jsonfileTeamSpeakLastestVersion=LastestVersion.json"
 SET "Commande_ProcessStop=/serverprocessstop"
@@ -37,6 +57,9 @@ SET "TeamSpeakLocalVersion=3.12.0"
 SET "IsByPassUpdatesEnable=1"
 SET "IsDbMySQL=MySQL"
 IF %ByPassUpdates% equ %IsByPassUpdatesEnable% ( SET TeamSpeakLocalVersion=99.99.99 )
+SET "NameBackup=Backup_TS3server_%DateHeure%"
+SET "SourceZipDirectory=%DirBackup%\teamspeak3-server_win64\"
+SET "DestZipFile=%DirZipBackup%\%NameBackup%.zip"
 
 
 :DOWNLOAD-JSON-FILE
@@ -90,10 +113,33 @@ curl -o %jsonfileTeamSpeakLocalVersion% -k -s -H "x-api-key: %ApiKey%" %URL%%Com
 TIMEOUT 10 /nobreak >nul
 ECHO Serveur Teamspeak STOPPING
 ECHO.
-Goto :BACKUP
+Goto :CHECK-EXIST-SERVER
+
+:CHECK-EXIST-SERVER
+If exist "%~dp0teamspeak3-server_win64" ( Goto :BACKUP )
+Goto :DOWNLOAD-INSTALL-UPDATES
 
 :BACKUP
 ECHO Backup Serveur Teamspeak ...
+ECHO.
+If exist %DirBackup% ( Goto :CheckExistDirBackup1 )
+mkdir "%DirBackup%"
+:CheckExistDirBackup1
+If exist "%DirBackup%\teamspeak3-server_win64" ( Goto :CheckExistDirBackup2 )
+mkdir "%DirBackup%\teamspeak3-server_win64"
+:CheckExistDirBackup2
+ECHO Backup ...
+ECHO Please wait ...
+ECHO.
+RoboCopy "%~dp0teamspeak3-server_win64" "%DirBackup%\teamspeak3-server_win64" /E /R:1 /W:1 /XA:S /XF *.tmp *.bak /XD "C:\TeamSpeak3_Serveur\teamspeak3-server_win64\files\virtualserver_1" /LOG+:%DirBackup%\log.log
+RoboCopy "%~dp0teamspeak3-server_win64\files\virtualserver_1\internal" "%DirBackup%\teamspeak3-server_win64\files\virtualserver_1\internal" /E /R:1 /W:1 /XA:S /XF *.tmp *.bak /LOG+:%DirBackup%\log.log
+:ZipBackup
+ECHO Zip Backup ...
+ECHO Please wait ...
+ECHO.
+%WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe -nologo -noprofile -command "& { Add-Type -Assembly 'System.IO.Compression.FileSystem'; $compressionLevel = [System.IO.Compression.CompressionLevel]::Optimal; [IO.Compression.ZipFile]::CreateFromDirectory('%SourceZipDirectory%', '%DestZipFile%', $compressionLevel, $false); }"
+ECHO.
+ECHO COMPRESS ZIP FINISH
 ECHO.
 Goto :DOWNLOAD-INSTALL-UPDATES
 
