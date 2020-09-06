@@ -1,5 +1,5 @@
 # TeamSpeak3 Start-Install-Update script automaticaly on Windows
-**Auto Install and Update if necessary the Windows/Linux TeamSpeak 3 Server on Windows 10 / server 2008 R2 / server 2016 / server 2019 / Ubuntu 18.04 / Ubuntu 20.04**
+**Auto Install and Update if necessary the Windows/Linux TeamSpeak 3 Server tested on Windows 10 / server 2008 R2 / server 2016 / server 2019 / Ubuntu 18.04 / Ubuntu 20.04**
 
 ## Table of content
 
